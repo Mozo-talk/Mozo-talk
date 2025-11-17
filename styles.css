@@ -1,0 +1,89 @@
+/* Reset-ish so the layout is predictable */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* === FIRST SCREEN: your merged artwork === */
+
+.first-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* exactly one viewport high */
+  background-image: url("images/first-screen.png"); /* adjust path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Clickable areas over the nav labels */
+.nav-hotspot {
+  position: absolute;
+  cursor: pointer;
+  /* For debugging: show the boxes. Later we can make them fully transparent. */
+  background: rgba(255, 0, 0, 0.15);
+  border: 1px solid rgba(255, 0, 0, 0.4);
+}
+
+/* These positions are approximate. You can tweak them visually. */
+/* They assume your teal bar + nav sit near the top. */
+
+.hotspot-converter {
+  top: 3.5vh;
+  left: 6vw;
+  width: 14vw;
+  height: 6vh;
+}
+
+.hotspot-stories {
+  top: 3.5vh;
+  left: 30vw;
+  width: 18vw;
+  height: 6vh;
+}
+
+.hotspot-firmer {
+  top: 3.5vh;
+  right: 24vw;
+  width: 18vw;
+  height: 6vh;
+}
+
+.hotspot-original {
+  top: 3.5vh;
+  right: 5vw;
+  width: 18vw;
+  height: 6vh;
+}
+
+/* Sections below so you can see scrolling working */
+
+.content-section {
+  min-height: 80vh;
+  padding: 4rem 8vw;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.content-section:nth-of-type(odd) {
+  background: #e2f3ff;
+}
+
+.content-section h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.content-section p {
+  max-width: 40rem;
+  line-height: 1.6;
+}
+
