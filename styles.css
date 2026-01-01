@@ -1,89 +1,557 @@
-/* Reset-ish so the layout is predictable */
-* {
-  margin: 0;
-  padding: 0;
+/* Root styles */
+:root {
+  --bg: #f6f6f6;
+  --text: #161616;
+  --muted: #7a7a7a;
+  --accent: #f9b5b5;
+  --border: #dcdcdc;
+  --card: #f1f1f1;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-html,
 body {
-  height: 100%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-}
-
-/* === FIRST SCREEN: your merged artwork === */
-
-.first-screen {
-  position: relative;
-  width: 100%;
-  height: 100vh; /* exactly one viewport high */
-  background-image: url("images/first-screen.png"); /* adjust path if needed */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Clickable areas over the nav labels */
-.nav-hotspot {
-  position: absolute;
-  cursor: pointer;
-  /* For debugging: show the boxes. Later we can make them fully transparent. */
-  background: rgba(255, 0, 0, 0.15);
-  border: 1px solid rgba(255, 0, 0, 0.4);
-}
-
-/* These positions are approximate. You can tweak them visually. */
-/* They assume your teal bar + nav sit near the top. */
-
-.hotspot-converter {
-  top: 3.5vh;
-  left: 6vw;
-  width: 14vw;
-  height: 6vh;
-}
-
-.hotspot-stories {
-  top: 3.5vh;
-  left: 30vw;
-  width: 18vw;
-  height: 6vh;
-}
-
-.hotspot-firmer {
-  top: 3.5vh;
-  right: 24vw;
-  width: 18vw;
-  height: 6vh;
-}
-
-.hotspot-original {
-  top: 3.5vh;
-  right: 5vw;
-  width: 18vw;
-  height: 6vh;
-}
-
-/* Sections below so you can see scrolling working */
-
-.content-section {
-  min-height: 80vh;
-  padding: 4rem 8vw;
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-}
-
-.content-section:nth-of-type(odd) {
-  background: #e2f3ff;
-}
-
-.content-section h2 {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-}
-
-.content-section p {
-  max-width: 40rem;
+  margin: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-family: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
   line-height: 1.6;
 }
 
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  color: var(--text);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.inner {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+}
+
+.muted {
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+}
+
+.body {
+  margin: 0.25rem 0 0.75rem;
+}
+
+.tiny-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Header */
+.site-header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.main-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links,
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links a {
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: var(--text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  justify-self: center;
+}
+
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--text);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.brand-name {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.social-links {
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
+.social-links a {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+  border-color: var(--border);
+  background: #fafafa;
+}
+
+/* Hero */
+.hero {
+  padding: 4rem 0 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f8f8 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.3rem, 3vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.info-block + .info-block {
+  margin-top: 1.1rem;
+}
+
+.hero-portrait {
+  display: grid;
+  place-items: center;
+}
+
+.portrait-frame {
+  position: relative;
+  width: min(380px, 70vw);
+  aspect-ratio: 1/1.25;
+  background: #f8f8f8;
+  border: 1px solid var(--border);
+  border-radius: 45%;
+  padding: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.05);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 40%;
+}
+
+.portrait-frame::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 45%;
+  border: 1px dashed #ededed;
+  pointer-events: none;
+}
+
+.pin {
+  position: absolute;
+  top: 16px;
+  right: 26px;
+  width: 16px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(249, 181, 181, 0.6);
+}
+
+.hero-stats {
+  display: grid;
+  gap: 1.3rem;
+  justify-items: flex-start;
+}
+
+.stat {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.stat-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 2rem;
+}
+
+/* Brands */
+.brands {
+  padding: 2.5rem 0 1.5rem;
+  border-block: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.brand-logos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.8rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.brand-logos img {
+  filter: grayscale(1);
+  opacity: 0.7;
+  max-height: 44px;
+}
+
+/* Skills */
+.skills {
+  padding: 4rem 0 3rem;
+  text-align: center;
+}
+
+.skills h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.2rem;
+}
+
+.skill-card {
+  background: var(--card);
+  border-radius: 30px;
+  padding: 1.6rem 1rem;
+  display: grid;
+  gap: 0.6rem;
+  place-items: center;
+  border: 1px solid var(--border);
+}
+
+.skill-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 12px 25px rgba(0, 0, 0, 0.05);
+}
+
+.skill-percent {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* Experience */
+.experience {
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.experience h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.experience-item h3 {
+  font-size: 1.05rem;
+  margin: 0.25rem 0 0.2rem;
+}
+
+/* Projects */
+.projects {
+  padding: 4rem 0 3rem;
+}
+
+.projects h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.project-card img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+.project-card h3 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Testimonial */
+.testimonial {
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.testimonial blockquote {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin: 0 auto 2rem;
+  max-width: 780px;
+}
+
+.testimonial-author {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.dots .active {
+  background: var(--text);
+}
+
+/* Gallery */
+.gallery {
+  padding: 3.5rem 0 3rem;
+  background: #fff;
+}
+
+.gallery-handle {
+  text-align: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.8rem;
+}
+
+.gallery-grid img {
+  width: 100%;
+  display: block;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+/* CTA */
+.cta {
+  padding: 4rem 0 3rem;
+  text-align: center;
+}
+
+.cta-circle {
+  width: min(320px, 60vw);
+  aspect-ratio: 1/1;
+  border: 1px dashed var(--border);
+  border-radius: 50%;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 30% 40%, rgba(0, 0, 0, 0.03), transparent 55%);
+}
+
+.cta-circle h3 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.cta-circle .arrow {
+  font-size: 1.5rem;
+  margin-top: 0.3rem;
+  display: inline-block;
+}
+
+.cta-circle .tiny-label {
+  margin-bottom: 0.4rem;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  background: #ffffff;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-grid .social-links {
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-text {
+    order: 1;
+  }
+
+  .hero-portrait {
+    order: 2;
+  }
+
+  .hero-stats {
+    order: 3;
+    justify-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .main-nav {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.6rem;
+  }
+
+  .nav-links,
+  .social-links {
+    justify-content: center;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .skill-grid,
+  .project-grid,
+  .experience-grid,
+  .brand-logos {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .gallery-grid img {
+    height: 100px;
+  }
+}
